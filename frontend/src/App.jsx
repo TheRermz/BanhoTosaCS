@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 // import Clientes from "./pages/Clientes";
 // import Pets from "./pages/Pets";
 // import Atendimentos from "./pages/Atendimentos";
