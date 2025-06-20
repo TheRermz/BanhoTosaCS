@@ -53,27 +53,45 @@ namespace banhotosa.Controllers
         public async Task<IActionResult> PutAtendimento(int id, Atendimento atendimento)
         {
             if (id != atendimento.ID)
-            {
                 return BadRequest();
-            }
-            _context.Entry(atendimento).State = EntityState.Modified;
-            try
+
+            var atendimentoExistente = await _context.Atendimentos
+                .Include(a => a.Servico)
+                .FirstOrDefaultAsync(a => a.ID == id);
+
+            if (atendimentoExistente == null)
+                return NotFound();
+
+            bool virouConcluido =
+                atendimento.Status == StatusAtendimento.Concluido &&
+                atendimentoExistente.Status != StatusAtendimento.Concluido;
+
+            // Atualiza os dados do atendimento
+            atendimentoExistente.Data = atendimento.Data;
+            atendimentoExistente.Hora = atendimento.Hora;
+            atendimentoExistente.Observacao = atendimento.Observacao;
+            atendimentoExistente.Status = atendimento.Status;
+            atendimentoExistente.PetID = atendimento.PetID;
+            atendimentoExistente.ServicoID = atendimento.ServicoID;
+
+            if (virouConcluido && atendimentoExistente.Servico != null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AtendimentoExists(id))
+                var novaEntrada = new Caixa
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                    Tipo = TipoCaixa.Entrada,
+                    Valor = atendimentoExistente.Servico.Preco,
+                    DataHora = DateTime.UtcNow,
+                    Descricao = $"Atendimento #{atendimentoExistente.ID} concluído"
+                };
+
+                _context.Caixa.Add(novaEntrada);
             }
+
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
+
         // DELETE: api/atendimentos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAtendimento(int id)
