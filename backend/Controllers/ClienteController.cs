@@ -20,14 +20,16 @@ namespace banhotosa.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
         {
-            return await _context.Clientes.ToListAsync();
+            return await _context.Clientes.Include(c => c.Pets).ToListAsync();
         }
 
         // GET: api/clientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetCliente(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await _context.Clientes
+        .Include(c => c.Pets)
+        .FirstOrDefaultAsync(c => c.ID == id);
             if (cliente == null)
             {
                 return NotFound();
