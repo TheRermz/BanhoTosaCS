@@ -122,7 +122,7 @@ function Home() {
         <div className="card">
           <h2>Total do Caixa</h2>
           <span className="card-value">
-            {loading ? "Carregando..." : `R$ ${caixa}`}
+            {loading ? "Carregando..." : `R$ ${Number(caixa).toFixed(2)}`}
           </span>
         </div>
       </div>
