@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace banhotosa.Models
 {
     public class Pet
@@ -7,12 +9,13 @@ namespace banhotosa.Models
         public string? Raca { get; set; }
 
         //puxar os atendimentos
-        public List<Atendimento> Atendimentos { get; set; } = new();
+        public List<Atendimento>? Atendimentos { get; set; } = new();
 
         // Foreign key
         public int ClienteID { get; set; }
 
         // Navigation property
-        public required Cliente Cliente { get; set; }
+        [JsonIgnore]
+        public Cliente? Cliente { get; set; }
     }
 }

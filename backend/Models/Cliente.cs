@@ -8,6 +8,6 @@ namespace banhotosa.Models
         public string Telefone { get; set; } = string.Empty;
 
         // Lista de pets
-        public List<Pet> Pets { get; set; } = new();
+        public List<Pet>? Pets { get; set; } = new();
     }
 }

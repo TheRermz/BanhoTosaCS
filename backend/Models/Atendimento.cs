@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace banhotosa.Models
 {
 
@@ -18,7 +20,9 @@ namespace banhotosa.Models
         public int PetID { get; set; }
         public int ServicoID { get; set; }
         // Navigation properties
-        public required Pet Pet { get; set; }
-        public required Servico Servico { get; set; }
+        [JsonIgnore]
+        public Pet? Pet { get; set; }
+        [JsonIgnore]
+        public Servico? Servico { get; set; }
     }
 }
