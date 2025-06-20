@@ -38,6 +38,14 @@ namespace banhotosa.Controllers
             return pet;
         }
 
+        // GET TOTAL: api/pets/total
+        [HttpGet("total")]
+        public async Task<ActionResult<int>> GetTotalPets()
+        {
+            var total = await _context.Pets.CountAsync();
+            return Ok(total);
+        }
+
         // POST: api/pets
         [HttpPost]
         public async Task<ActionResult<Pet>> PostPet(Pet pet)

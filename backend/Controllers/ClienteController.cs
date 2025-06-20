@@ -74,6 +74,13 @@ namespace banhotosa.Controllers
             return NoContent();
         }
 
+        [HttpGet("total")]
+        public async Task<IActionResult> GetTotalClientes()
+        {
+            var total = await _context.Clientes.CountAsync();
+            return Ok(total);
+        }
+
         private bool ClienteExists(int id)
         {
             return _context.Clientes.Any(e => e.ID == id);

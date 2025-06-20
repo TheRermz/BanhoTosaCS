@@ -35,6 +35,14 @@ namespace banhotosa.Controllers
             return caixa;
         }
 
+        // GET: api/caixa/total -- retornar somente o valor total
+        [HttpGet("total")]
+        public async Task<ActionResult<decimal>> GetTotalCaixa()
+        {
+            var total = await _context.Caixa.SumAsync(c => c.Valor);
+            return Ok(total);
+        }
+
         // POST: api/caixa
         [HttpPost]
         public async Task<ActionResult<Caixa>> PostCaixa(Caixa caixa)

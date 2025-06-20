@@ -16,14 +16,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-options.AddDefaultPolicy(policy =>
-{
-    policy
-        .AllowAnyOrigin() // ou .WithOrigins("http://localhost:5173") para mais segurança
-        .AllowAnyMethod()
-        .AllowAnyHeader();
+    options.AddDefaultPolicy(policy =>
+    {
+        policy
+            .AllowAnyOrigin() // ou .WithOrigins("http://localhost:5173") para mais segurança
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
 });
-});
+
+builder.WebHost.UseUrls("http://0.0.0.0:5029");
 
 
 var app = builder.Build();
