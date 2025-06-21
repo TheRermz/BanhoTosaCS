@@ -85,17 +85,32 @@ Este é o backend da aplicação BanhoTosa, responsável por fornecer uma API RE
 
 ---
 
-### Caixa
+## Caixa
+
+- **GET `/api/caixa`**
+
+  - Lista todos os lançamentos do caixa.
+
+- **GET `/api/caixa/{id}`**
+
+  - Retorna os dados de um lançamento específico do caixa.
 
 - **GET `/api/caixa/total`**
-  - Retorna o valor total do caixa (soma dos valores dos atendimentos concluídos).
 
----
+  - Retorna o valor total do caixa (soma das entradas menos as saídas).
 
-### Outros Endpoints
+- **POST `/api/caixa`**
 
-- **GET `/api/datahora`**
-  - Retorna a data e hora atual do servidor (útil para sincronização).
+  - Cria um novo lançamento no caixa.
+  - Campos: `Valor` (decimal, obrigatório e sempre positivo), `Tipo` (Entrada/Saída), outros campos conforme o modelo.
+
+- **PUT `/api/caixa/{id}`**
+
+  - Atualiza um lançamento do caixa existente.
+  - Campos: `Valor` (decimal, obrigatório e sempre positivo), `Tipo` (Entrada/Saída), outros campos conforme o modelo.
+
+- **DELETE `/api/caixa/{id}`**
+  - Exclui um lançamento
 
 ---
 
