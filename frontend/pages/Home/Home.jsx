@@ -15,16 +15,18 @@ function Home() {
   const mesAtualCapitalizado =
     mesAtual.charAt(0).toUpperCase() + mesAtual.slice(1);
 
+  const apiURL = import.meta.env.VITE_APP_API;
+
   useEffect(() => {
     async function fetchData() {
       try {
         const [clientesRes, petsRes, caixaRes, servicosRes, petListaRes] =
           await Promise.all([
-            fetch("http://192.168.15.126:5029/api/clientes/total"),
-            fetch("http://192.168.15.126:5029/api/pet/total"),
-            fetch("http://192.168.15.126:5029/api/caixa/mes-atual"),
-            fetch("http://192.168.15.126:5029/api/servicos"),
-            fetch("http://192.168.15.126:5029/api/pet"),
+            fetch(`${apiURL}/clientes/total`),
+            fetch(`${apiURL}/pet/total`),
+            fetch(`${apiURL}/caixa/mes-atual`),
+            fetch(`${apiURL}/servicos`),
+            fetch(`${apiURL}/pet`),
           ]);
         const clientesData = await clientesRes.json();
         const petsData = await petsRes.json();
@@ -49,12 +51,12 @@ function Home() {
       }
     }
     fetchData();
-  }, []);
+  }, [apiURL]);
 
   useEffect(() => {
     async function fetchAtendimentos() {
       try {
-        const res = await fetch("http://192.168.15.126:5029/api/atendimentos/");
+        const res = await fetch(`${apiURL}/atendimentos/`);
         if (!res.ok) throw new Error();
         const data = await res.json();
 
@@ -106,7 +108,7 @@ function Home() {
     }
 
     fetchAtendimentos();
-  }, [pets, servicos, petLista]);
+  }, [pets, servicos, petLista, apiURL]);
 
   return (
     <main className="home-container">
@@ -147,11 +149,11 @@ function Home() {
             <tbody>
               {loadingAtend ? (
                 <tr>
-                  <td colSpan={5}>Carregando...</td>
+                  <td colSpan={6}>Carregando...</td>
                 </tr>
               ) : atendimentos.length === 0 ? (
                 <tr>
-                  <td colSpan={5}>Nenhum atendimento encontrado.</td>
+                  <td colSpan={6}>Nenhum atendimento encontrado.</td>
                 </tr>
               ) : (
                 atendimentos.slice(0, 5).map((a) => (

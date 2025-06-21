@@ -8,6 +8,8 @@ function Clientes() {
   const [formData, setFormData] = useState({ nome: "", telefone: "" });
   const [editingId, setEditingId] = useState(null);
 
+  const apiURL = import.meta.env.VITE_APP_API; // variável do .env
+
   useEffect(() => {
     fetchClientes();
   }, []);
@@ -15,7 +17,7 @@ function Clientes() {
   async function fetchClientes() {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.15.126:5029/api/clientes");
+      const res = await fetch(`${apiURL}/api/clientes`);
       const data = await res.json();
       setClientes(data);
     } catch {
@@ -37,7 +39,7 @@ function Clientes() {
       return;
     }
     if (window.confirm("Tem certeza que deseja excluir este cliente?")) {
-      fetch(`http://192.168.15.126:5029/api/clientes/${cliente.id}`, {
+      fetch(`${apiURL}/api/clientes/${cliente.id}`, {
         method: "DELETE",
       }).then(() => fetchClientes());
     }
@@ -52,13 +54,13 @@ function Clientes() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (editingId) {
-      await fetch(`http://192.168.15.126:5029/api/clientes/${editingId}`, {
+      await fetch(`${apiURL}/api/clientes/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
     } else {
-      await fetch("http://192.168.15.126:5029/api/clientes", {
+      await fetch(`${apiURL}/api/clientes`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

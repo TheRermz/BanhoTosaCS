@@ -42,6 +42,8 @@ function Caixa() {
   });
   const [editingId, setEditingId] = useState(null);
 
+  const apiURL = import.meta.env.VITE_APP_API;
+
   useEffect(() => {
     fetchAll();
   }, []);
@@ -50,9 +52,9 @@ function Caixa() {
     setLoading(true);
     try {
       const [totalRes, mesRes, movRes] = await Promise.all([
-        fetch("http://126.168.15.126:5029/api/caixa/total"),
-        fetch("http://126.168.15.126:5029/api/caixa/mes-atual"),
-        fetch("http://126.168.15.126:5029/api/caixa"),
+        fetch(`${apiURL}/api/caixa/total`),
+        fetch(`${apiURL}/api/caixa/mes-atual`),
+        fetch(`${apiURL}/api/caixa`),
       ]);
       const [totalData, mesData, movData] = await Promise.all([
         totalRes.json(),
@@ -108,13 +110,13 @@ function Caixa() {
       descricao: formData.descricao,
     };
     if (editingId) {
-      await fetch(`http://126.168.15.126:5029/api/caixa/${editingId}`, {
+      await fetch(`${apiURL}/api/caixa/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, id: editingId }),
       });
     } else {
-      await fetch("http://126.168.15.126:5029/api/caixa", {
+      await fetch(`${apiURL}/api/caixa`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

@@ -9,6 +9,8 @@ function Servicos() {
   const [formData, setFormData] = useState({ tipo: "", preco: "" });
   const [editingId, setEditingId] = useState(null);
 
+  const apiURL = import.meta.env.VITE_APP_API;
+
   useEffect(() => {
     fetchAll();
   }, []);
@@ -17,8 +19,8 @@ function Servicos() {
     setLoading(true);
     try {
       const [servRes, atendRes] = await Promise.all([
-        fetch("http://192.168.15.126:5029/api/servicos"),
-        fetch("http://192.168.15.126:5029/api/atendimentos"),
+        fetch(`${apiURL}/servicos`),
+        fetch(`${apiURL}/atendimentos`),
       ]);
       const [servData, atendData] = await Promise.all([
         servRes.json(),
@@ -47,7 +49,6 @@ function Servicos() {
   }
 
   async function handleDelete(servico) {
-    // Verifica se o serviço está em uso em algum atendimento
     const emUso = atendimentos.some((a) => a.servicoID === servico.id);
     if (emUso) {
       alert(
@@ -56,7 +57,7 @@ function Servicos() {
       return;
     }
     if (window.confirm("Tem certeza que deseja excluir este serviço?")) {
-      await fetch(`http://192.168.15.126:5029/api/servicos/${servico.id}`, {
+      await fetch(`${apiURL}/servicos/${servico.id}`, {
         method: "DELETE",
       });
       fetchAll();
@@ -70,13 +71,13 @@ function Servicos() {
       preco: Number(formData.preco),
     };
     if (editingId) {
-      await fetch(`http://192.168.15.126:5029/api/servicos/${editingId}`, {
+      await fetch(`${apiURL}/servicos/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     } else {
-      await fetch("http://192.168.15.126:5029/api/servicos", {
+      await fetch(`${apiURL}/servicos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

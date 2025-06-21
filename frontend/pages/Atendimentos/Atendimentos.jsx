@@ -29,6 +29,8 @@ function Atendimentos() {
   });
   const [editingId, setEditingId] = useState(null);
 
+  const apiURL = import.meta.env.VITE_APP_API;
+
   useEffect(() => {
     fetchAll();
   }, []);
@@ -37,9 +39,9 @@ function Atendimentos() {
     setLoading(true);
     try {
       const [atRes, petsRes, servRes] = await Promise.all([
-        fetch("http://192.168.15.5:5029/api/atendimentos"),
-        fetch("http://192.168.15.5:5029/api/pet"),
-        fetch("http://192.168.15.5:5029/api/servicos"),
+        fetch(`${apiURL}/api/atendimentos`),
+        fetch(`${apiURL}/api/pet`),
+        fetch(`${apiURL}/api/servicos`),
       ]);
       const [atData, petsData, servData] = await Promise.all([
         atRes.json(),
@@ -98,13 +100,13 @@ function Atendimentos() {
     };
 
     if (editingId) {
-      await fetch(`http://192.168.15.5:5029/api/atendimentos/${editingId}`, {
+      await fetch(`${apiURL}/api/atendimentos/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     } else {
-      await fetch("http://192.168.15.5:5029/api/atendimentos", {
+      await fetch(`${apiURL}/api/atendimentos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

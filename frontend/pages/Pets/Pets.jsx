@@ -13,6 +13,8 @@ function Pets() {
   });
   const [editingId, setEditingId] = useState(null);
 
+  const apiURL = import.meta.env.VITE_APP_API; // Ajuste para sua variável de ambiente
+
   useEffect(() => {
     fetchPets();
     fetchClientes();
@@ -21,7 +23,7 @@ function Pets() {
   async function fetchPets() {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.15.126:5029/api/pet");
+      const res = await fetch(`${apiURL}/api/pet`);
       const data = await res.json();
       setPets(data);
     } catch {
@@ -33,7 +35,7 @@ function Pets() {
 
   async function fetchClientes() {
     try {
-      const res = await fetch("http://192.168.15.126:5029/api/clientes");
+      const res = await fetch(`${apiURL}/api/clientes`);
       const data = await res.json();
       setClientes(data);
     } catch {
@@ -54,9 +56,7 @@ function Pets() {
   async function handleDelete(pet) {
     // Busca atendimentos do pet antes de excluir
     try {
-      const res = await fetch(
-        `http://192.168.15.126:5029/api/atendimentos?petID=${pet.id}`
-      );
+      const res = await fetch(`${apiURL}/api/atendimentos?petID=${pet.id}`);
       const atendimentos = await res.json();
       if (Array.isArray(atendimentos) && atendimentos.length > 0) {
         alert(
@@ -70,9 +70,10 @@ function Pets() {
     }
 
     if (window.confirm("Tem certeza que deseja excluir este pet?")) {
-      fetch(`http://192.168.15.126:5029/api/pet/${pet.id}`, {
+      await fetch(`${apiURL}/api/pet/${pet.id}`, {
         method: "DELETE",
-      }).then(() => fetchPets());
+      });
+      fetchPets();
     }
   }
 
@@ -90,13 +91,13 @@ function Pets() {
       clienteID: formData.clienteId,
     };
     if (editingId) {
-      await fetch(`http://192.168.15.126:5029/api/pet/${editingId}`, {
+      await fetch(`${apiURL}/api/pet/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     } else {
-      await fetch("http://192.168.15.126:5029/api/pet", {
+      await fetch(`${apiURL}/api/pet`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
