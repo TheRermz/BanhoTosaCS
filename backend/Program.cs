@@ -1,8 +1,21 @@
 using banhotosa.Data;
 using banhotosa.Models;
 using Microsoft.EntityFrameworkCore;
+using dotenv.net;
 
 var builder = WebApplication.CreateBuilder(args);
+
+DotEnv.Load(); // Carrega variáveis de ambiente do arquivo .env
+
+var host = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
+var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
+var dbName = Environment.GetEnvironmentVariable("DB_NAME") ?? "dbname";
+var user = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
+var pass = Environment.GetEnvironmentVariable("DB_PASS") ?? "changeme";
+
+var connString = $"Host={host};Port={port};Database={dbName};Username={user};Password={pass}";
+
+
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -12,7 +25,7 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connString));
 
 builder.Services.AddCors(options =>
 {
