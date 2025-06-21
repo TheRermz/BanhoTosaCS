@@ -20,11 +20,11 @@ function Home() {
       try {
         const [clientesRes, petsRes, caixaRes, servicosRes, petListaRes] =
           await Promise.all([
-            fetch("http://192.168.15.5:5029/api/clientes/total"),
-            fetch("http://192.168.15.5:5029/api/pet/total"),
-            fetch("http://192.168.15.5:5029/api/caixa/mes-atual"),
-            fetch("http://192.168.15.5:5029/api/servicos"),
-            fetch("http://192.168.15.5:5029/api/pet"),
+            fetch("http://192.168.15.126:5029/api/clientes/total"),
+            fetch("http://192.168.15.126:5029/api/pet/total"),
+            fetch("http://192.168.15.126:5029/api/caixa/mes-atual"),
+            fetch("http://192.168.15.126:5029/api/servicos"),
+            fetch("http://192.168.15.126:5029/api/pet"),
           ]);
         const clientesData = await clientesRes.json();
         const petsData = await petsRes.json();
@@ -54,7 +54,7 @@ function Home() {
   useEffect(() => {
     async function fetchAtendimentos() {
       try {
-        const res = await fetch("http://192.168.15.5:5029/api/atendimentos/");
+        const res = await fetch("http://192.168.15.126:5029/api/atendimentos/");
         if (!res.ok) throw new Error();
         const data = await res.json();
 

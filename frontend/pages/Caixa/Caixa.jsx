@@ -50,9 +50,9 @@ function Caixa() {
     setLoading(true);
     try {
       const [totalRes, mesRes, movRes] = await Promise.all([
-        fetch("http://192.168.15.5:5029/api/caixa/total"),
-        fetch("http://192.168.15.5:5029/api/caixa/mes-atual"),
-        fetch("http://192.168.15.5:5029/api/caixa"),
+        fetch("http://126.168.15.126:5029/api/caixa/total"),
+        fetch("http://126.168.15.126:5029/api/caixa/mes-atual"),
+        fetch("http://126.168.15.126:5029/api/caixa"),
       ]);
       const [totalData, mesData, movData] = await Promise.all([
         totalRes.json(),
@@ -108,13 +108,13 @@ function Caixa() {
       descricao: formData.descricao,
     };
     if (editingId) {
-      await fetch(`http://192.168.15.5:5029/api/caixa/${editingId}`, {
+      await fetch(`http://126.168.15.126:5029/api/caixa/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, id: editingId }),
       });
     } else {
-      await fetch("http://192.168.15.5:5029/api/caixa", {
+      await fetch("http://126.168.15.126:5029/api/caixa", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
