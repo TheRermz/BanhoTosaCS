@@ -31,6 +31,9 @@ const Navbar = () => {
           <Link to="/atendimentos" onClick={() => setMenuAtivo(false)}>
             Atendimentos
           </Link>
+          <Link to="/servicos" onClick={() => setMenuAtivo(false)}>
+            Serviços
+          </Link>
           <Link to="/caixa" onClick={() => setMenuAtivo(false)}>
             Caixa
           </Link>
