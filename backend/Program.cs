@@ -39,9 +39,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors();
 
+app.UseDefaultFiles(); // Procura index.html
+app.UseStaticFiles();  // Serve arquivos de wwwroot
+
+
 
 app.UseHttpsRedirection();
 
 app.MapControllers();
+app.MapFallbackToFile("index.html");
+
 
 app.Run();
