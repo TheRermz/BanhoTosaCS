@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "postbuild": "rm -rf ../backend/wwwroot/* && cp -r dist/* ../backend/wwwroot/"
+    "postbuild": "rm -rf ../backend/wwwroot/* &&  -p ../backend/wwwroot && cp -r dist/* ../backend/wwwroot/"
   },
   "dependencies": {
     "react": "^19.1.0",
