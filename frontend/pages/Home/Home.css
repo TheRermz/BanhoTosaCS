@@ -110,6 +110,21 @@ h1 {
   border-bottom: none;
 }
 
+.status-pendente {
+  color: #ffffff;
+}
+
+.status-concluido {
+  color: #00e676;
+  font-weight: bold;
+}
+
+.status-cancelado {
+  color: #ff5252;
+  text-decoration: line-through;
+  font-style: italic;
+}
+
 @media (max-width: 600px) {
   .atendimentos-table,
   .atendimentos-table thead,

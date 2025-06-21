@@ -66,7 +66,6 @@ function Home() {
 
           const fullDateTime = `1970-01-01T${atendimento.hora}`;
           const horaObj = new Date(fullDateTime);
-          horaObj.setHours(horaObj.getHours() - 3);
 
           const horaFormatada = !isNaN(horaObj)
             ? horaObj.toLocaleTimeString("pt-BR", {
@@ -137,6 +136,7 @@ function Home() {
                 <th>Pet</th>
                 <th>Serviço</th>
                 <th>Valor</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -156,6 +156,22 @@ function Home() {
                     <td data-label="PetNome">{a.petNome}</td>
                     <td data-label="ServicoNome">{a.servicoNome}</td>
                     <td data-label="Valor">R$ {a.valor}</td>
+                    <td
+                      data-label="Status"
+                      className={
+                        a.status === 0
+                          ? "status-pendente"
+                          : a.status === 1
+                          ? "status-concluido"
+                          : "status-cancelado"
+                      }
+                    >
+                      {a.status === 0
+                        ? "Pendente"
+                        : a.status === 1
+                        ? "Concluído"
+                        : "Cancelado"}
+                    </td>
                   </tr>
                 ))
               )}

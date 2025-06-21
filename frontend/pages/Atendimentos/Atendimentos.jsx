@@ -72,6 +72,7 @@ function Atendimentos() {
   }
 
   function handleEdit(atendimento) {
+    if (atendimento.status === 1) return;
     setFormData({
       data: atendimento.data,
       hora: atendimento.hora ? atendimento.hora.slice(0, 5) : "",
@@ -148,7 +149,17 @@ function Atendimentos() {
                 {a.observacao && <div>Obs: {a.observacao}</div>}
               </div>
               <div className="card-actions">
-                <button onClick={() => handleEdit(a)}>Editar</button>
+                <button
+                  onClick={() => handleEdit(a)}
+                  disabled={a.status === 1}
+                  style={
+                    a.status === 1
+                      ? { opacity: 0.5, cursor: "not-allowed" }
+                      : {}
+                  }
+                >
+                  Editar
+                </button>
               </div>
             </li>
           ))}
