@@ -67,6 +67,7 @@ function Servicos() {
   async function handleSubmit(e) {
     e.preventDefault();
     const payload = {
+      id: editingId,
       tipo: formData.tipo,
       preco: Number(formData.preco),
     };

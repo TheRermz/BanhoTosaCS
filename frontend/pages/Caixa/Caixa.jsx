@@ -104,6 +104,7 @@ function Caixa() {
       return;
     }
     const payload = {
+      id: editingId,
       tipo: Number(formData.tipo),
       valor: Math.abs(Number(formData.valor)),
       dataHora: formData.dataHora,

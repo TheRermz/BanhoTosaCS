@@ -86,6 +86,7 @@ function Pets() {
   async function handleSubmit(e) {
     e.preventDefault();
     const payload = {
+      id: editingId,
       nome: formData.nome,
       raca: formData.raca,
       clienteID: formData.clienteId,

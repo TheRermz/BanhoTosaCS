@@ -90,7 +90,7 @@ function Atendimentos() {
   async function handleSubmit(e) {
     e.preventDefault();
     const payload = {
-      id: editingId || undefined,
+      id: editingId,
       data: formData.data,
       hora: formData.hora,
       observacao: formData.observacao,
