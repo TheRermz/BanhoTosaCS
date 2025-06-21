@@ -1,22 +1,25 @@
 # BanhoTosa - Sistema de Gestão para Petshops
 
-Este projeto é composto por dois módulos principais: **backend** (API REST) e **frontend** (interface web). O objetivo é facilitar o gerenciamento de clientes, pets, atendimentos, serviços e caixa para petshops.
+Este projeto é composto por dois módulos principais:
+
+- **Backend**: API RESTful desenvolvida em .NET para gerenciamento de clientes, pets, atendimentos, serviços e caixa.
+- **Frontend**: Interface web em React, responsiva e com tema escuro, para uso prático em petshops.
 
 ---
 
 ## 📦 Backend
 
-### Tecnologias
+### Tecnologias do Backend
 
-- .NET (provavelmente ASP.NET Core)
-- API RESTful
-- Banco de dados relacional (ex: SQL Server, PostgreSQL, MySQL)
+- .NET (ASP.NET Core)
+- Banco de dados relacional (PostgreSQL, SQL Server, etc)
+- API RESTful com respostas em JSON
 
-### Funcionalidades
+### Funcionalidades do Backend
 
 - **Clientes**
 
-  - CRUD completo (criar, listar, editar, excluir)
+  - CRUD completo
   - Cada cliente pode ter vários pets
   - Não permite excluir cliente com pets vinculados
 
@@ -30,8 +33,9 @@ Este projeto é composto por dois módulos principais: **backend** (API REST) e 
 
   - CRUD completo
   - Cada atendimento está vinculado a um pet e a um serviço
-  - Campos: data, hora, observação, status (enum: Pendente, Concluído, Cancelado)
-  - Data e hora são gerados automaticamente no backend ao criar
+  - Campos: data, hora, observação, status (Pendente, Concluído, Cancelado)
+  - Data e hora são gerados automaticamente ao criar
+  - Não permite excluir serviço/pet em uso em atendimentos
 
 - **Serviços**
 
@@ -41,6 +45,7 @@ Este projeto é composto por dois módulos principais: **backend** (API REST) e 
 
 - **Caixa**
 
+  - CRUD de lançamentos (entrada/saída)
   - Endpoint para consultar o total do caixa (soma dos valores dos atendimentos concluídos)
 
 - **Endpoints de apoio**
@@ -58,13 +63,13 @@ Este projeto é composto por dois módulos principais: **backend** (API REST) e 
 
 ## 💻 Frontend
 
-### Tecnologias
+### Tecnologias do Frontend
 
 - React
 - CSS customizado (mobile first, tema escuro)
 - Consome a API REST do backend
 
-### Funcionalidades
+### Funcionalidades do Frontend
 
 - **Navbar**
 
@@ -94,8 +99,12 @@ Este projeto é composto por dois módulos principais: **backend** (API REST) e 
   - Status exibido como texto (Pendente, Concluído, Cancelado)
 
 - **Serviços**
+
   - Lista todos os serviços, mostra tipo e preço
-  - Criar, editar e excluir serviços (exclusão só se não houver atendimentos vinculados)
+  - Criar, editar e excluir serviços (exclusão só se não houver atendimentos)
+
+- **Caixa**
+  - Lista lançamentos e mostra total do caixa
 
 ### Design
 
@@ -117,11 +126,11 @@ Este projeto é composto por dois módulos principais: **backend** (API REST) e 
 
 1. Configure o banco de dados e as variáveis de ambiente.
 2. Compile e rode o backend:
-   ```bash
+3. ```bash
    dotnet build
    dotnet run
    ```
-3. O backend ficará disponível na porta configurada (ex: http://localhost:5029).
+4. O backend ficará disponível na porta configurada (ex: http://localhost:5029).
 
 ### Frontend
 
@@ -133,13 +142,11 @@ Este projeto é composto por dois módulos principais: **backend** (API REST) e 
    ```bash
    npm run dev
    ```
-3. Acesse via navegador (ex: http://localhost:5173).
+3. Acesse via navegador (ex: <http://localhost:5173>).
 
 ---
 
 ## 📚 Observações Finais
 
 - O sistema foi desenvolvido para facilitar o dia a dia de petshops, com foco em usabilidade, praticidade e segurança dos dados.
-- Para dúvidas ou sugestões, consulte o código-fonte ou abra uma issue.
-
----
+- Para dúvidas ou sugestões, consulte o código-fonte ou abra

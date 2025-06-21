@@ -1,74 +1,99 @@
 # BanhoTosa Frontend
 
-Este projeto é o frontend de um sistema de gestão para petshops, desenvolvido em React, com foco em controle de clientes, pets, atendimentos, serviços e caixa.
+Este é o frontend do sistema BanhoTosa, uma aplicação web desenvolvida para facilitar o gerenciamento de clientes, pets, atendimentos, serviços e caixa em petshops. O frontend foi projetado com foco em usabilidade, responsividade (mobile first) e integração total com o backend via API REST.
 
-## Funcionalidades
+---
 
-### 1. Navbar
+## 🚀 Tecnologias Utilizadas
 
-- Navegação fixa no topo, responsiva (mobile first).
-- Links para Home, Clientes, Pets, Atendimentos e Serviços.
+- **React**: Biblioteca principal para construção da interface.
+- **React Router**: Navegação entre páginas.
+- **Fetch**: Consumo da API REST do backend.
+- **CSS customizado**: Estilização própria, com abordagem mobile first e tema escuro.
+- **IBM Plex Sans**: Fonte principal para melhor legibilidade.
 
-### 2. Home (Dashboard)
+---
 
-- Exibe cards com o total de clientes, pets e valor do caixa (dados vindos da API).
-- Mostra uma tabela com os últimos atendimentos, responsiva para mobile.
+## 💡 Funcionamento Geral
 
-### 3. Clientes
+O frontend se comunica diretamente com o backend por meio de requisições HTTP (REST API). Todas as operações de cadastro, edição, exclusão e listagem são feitas consumindo os endpoints do backend.
 
-- Lista todos os clientes cadastrados, mostrando nome, telefone e pets de cada cliente.
-- Botão para criar novo cliente (abre modal com formulário).
-- Botão para editar cliente (abre modal com formulário preenchido).
-- Botão para excluir cliente (só permite se não houver pets vinculados, com confirmação).
-- Validação de formulário e feedbacks visuais.
+### Principais Funcionalidades
 
-### 4. Pets
+- **Dashboard (Home)**
 
-- Lista todos os pets cadastrados, mostrando nome, raça e dono.
-- Botão para criar novo pet (abre modal com formulário).
-- Botão para editar pet (abre modal com formulário preenchido).
-- Botão para excluir pet (só permite se não houver atendimentos vinculados, com confirmação).
-- Seleção do dono do pet a partir dos clientes cadastrados.
+  - Exibe cards com totais de clientes, pets e caixa.
+  - Mostra uma tabela com os últimos atendimentos realizados.
 
-### 5. Atendimentos
+- **Clientes**
 
-- Lista todos os atendimentos, mostrando pet, serviço, data, hora, status e observação.
-- Botão para criar novo atendimento (abre modal com formulário).
-  - Data e hora são preenchidos automaticamente com a data/hora local e não podem ser alterados na criação.
-- Botão para editar atendimento (abre modal com formulário preenchido, permite alterar status, observação, pet e serviço).
-- Status exibido como texto (Pendente, Concluído, Cancelado) conforme enum do backend.
+  - Lista todos os clientes cadastrados.
+  - Permite cadastrar, editar e excluir clientes (exclusão apenas se não houver pets vinculados).
+  - Exibe os pets de cada cliente.
+  - Formulários em modais para melhor experiência.
 
-### 6. Serviços
+- **Pets**
 
-- Lista todos os serviços cadastrados, mostrando tipo e preço.
-- Botão para criar novo serviço (abre modal com formulário).
-- Botão para editar serviço (abre modal com formulário preenchido).
-- Botão para excluir serviço (só permite se não houver atendimentos vinculados, com confirmação).
+  - Lista todos os pets, mostrando raça e dono.
+  - Permite cadastrar, editar e excluir pets (exclusão apenas se não houver atendimentos vinculados).
+  - Seleção do dono via dropdown.
 
-## Design
+- **Atendimentos**
 
-- Mobile first e responsivo.
-- Tema escuro, com fonte IBM Plex Sans.
-- Modais para formulários de criação/edição.
-- Feedback visual para ações e validações.
+  - Lista todos os atendimentos, mostrando pet, serviço, data, hora, status e observação.
+  - Permite cadastrar (data/hora automáticos), editar (alteração de status) e visualizar atendimentos.
+  - Status exibido como texto (Pendente, Concluído, Cancelado).
 
-## Integração com Backend
+- **Serviços**
 
-- Todas as operações (listar, criar, editar, excluir) são feitas via requisições HTTP para a API REST do backend.
-- Endpoints configurados para rodar localmente (ajuste os IPs/URLs conforme necessário).
+  - Lista todos os serviços disponíveis, mostrando tipo e preço.
+  - Permite cadastrar, editar e excluir serviços (exclusão apenas se não houver atendimentos vinculados).
 
-## Como rodar
+- **Caixa**
+
+  - Lista lançamentos de caixa e mostra o total calculado automaticamente.
+
+- **Navegação**
+  - Navbar fixa e responsiva, com links para todas as páginas principais.
+
+---
+
+## 🔗 Integração com o Backend
+
+- Todas as operações CRUD (Create, Read, Update, Delete) são realizadas via requisições HTTP para a API do backend.
+- O frontend espera respostas em JSON e trata erros/validações conforme retornos do backend.
+- URLs e endpoints podem ser configurados conforme o ambiente (desenvolvimento ou produção).
+
+---
+
+## 📱 Design Mobile First
+
+- **Responsividade**: O layout foi desenhado para funcionar perfeitamente em dispositivos móveis, tablets e desktops.
+- **Tema escuro**: Interface com cores escuras para conforto visual e uso prolongado.
+- **Componentes adaptáveis**: Cards, tabelas, formulários e modais se ajustam ao tamanho da tela.
+- **Navegação simplificada**: Menus e botões grandes, fáceis de usar em telas pequenas.
+- **Feedback visual**: Mensagens de sucesso, erro e validação são exibidas de forma clara e acessível.
+
+---
+
+## ⚙️ Como Rodar o Frontend
 
 1. Instale as dependências:
    ```bash
    npm install
    ```
-2. Inicie o frontend:
+2. Inicie o servidor de desenvolvimento:
    ```bash
    npm run dev
    ```
-3. Certifique-se de que o backend está rodando e acessível nos endpoints configurados.
+3. Acesse a aplicação pelo navegador em `http://localhost:5173` (ou porta configurada).
 
 ---
 
-Desenvolvido para facilitar o controle de petshops, com foco em usabilidade, praticidade e responsividade.
+## 📚 Observações
+
+- Certifique-se de que o backend esteja rodando e acessível para o frontend funcionar corretamente.
+- Para personalizar URLs da API, ajuste as variáveis de ambiente ou arquivos de configuração conforme necessário.
+- O frontend foi desenvolvido para ser intuitivo e fácil de usar, mesmo em dispositivos móveis.
+
+---
