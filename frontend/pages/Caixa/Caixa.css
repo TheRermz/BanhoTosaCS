@@ -1,0 +1,213 @@
+/* Mobile first */
+
+.caixa-container {
+  padding: 1rem;
+  max-width: 100%;
+  margin: 32px auto;
+  color: #fff;
+}
+
+.caixa-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.caixa-card {
+  background: #23272f;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.caixa-card h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.caixa-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00e676;
+}
+
+.novo-btn {
+  margin-bottom: 1.5rem;
+  margin-top: 0.25rem;
+  padding: 0.5rem 1.2rem;
+  background: #00e676;
+  color: #222;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.caixa-table-responsive {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.caixa-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #23272f;
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 600px;
+}
+
+.caixa-table th,
+.caixa-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.caixa-table th {
+  background: #181b20;
+  font-weight: 600;
+}
+
+.caixa-table tr:nth-child(even) {
+  background: #23272f;
+}
+
+.caixa-table tr:nth-child(odd) {
+  background: #20232a;
+}
+
+.caixa-table td {
+  border-bottom: 1px solid #222;
+}
+
+.caixa-table tr:last-child td {
+  border-bottom: none;
+}
+
+.caixa-table button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal {
+  background: #23272f;
+  padding: 1.5rem 1rem;
+  border-radius: 10px;
+  min-width: 90vw;
+  max-width: 400px;
+  color: #fff;
+}
+
+.modal label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.modal input,
+.modal select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border-radius: 5px;
+  border: none;
+  background: #181b20;
+  color: #fff;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modal-actions button[type="submit"] {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  background: #00e676;
+  color: #222;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-actions button[type="button"] {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Desktop */
+@media (max-width: 700px) {
+  .caixa-table,
+  .caixa-table thead,
+  .caixa-table tbody,
+  .caixa-table tr,
+  .caixa-table th,
+  .caixa-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .caixa-table thead {
+    display: none;
+  }
+
+  .caixa-table tr {
+    margin-bottom: 1.5rem;
+    background: #23272f;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 1rem 0.5rem;
+  }
+
+  .caixa-table td {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    border: none;
+    position: relative;
+  }
+
+  .caixa-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #00e676;
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+  }
+}
