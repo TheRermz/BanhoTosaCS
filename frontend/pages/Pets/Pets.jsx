@@ -23,7 +23,7 @@ function Pets() {
   async function fetchPets() {
     setLoading(true);
     try {
-      const res = await fetch(`${apiURL}/api/pet`);
+      const res = await fetch(`${apiURL}/pet`);
       const data = await res.json();
       setPets(data);
     } catch {
@@ -35,7 +35,7 @@ function Pets() {
 
   async function fetchClientes() {
     try {
-      const res = await fetch(`${apiURL}/api/clientes`);
+      const res = await fetch(`${apiURL}/clientes`);
       const data = await res.json();
       setClientes(data);
     } catch {
@@ -56,7 +56,7 @@ function Pets() {
   async function handleDelete(pet) {
     // Busca atendimentos do pet antes de excluir
     try {
-      const res = await fetch(`${apiURL}/api/atendimentos?petID=${pet.id}`);
+      const res = await fetch(`${apiURL}/atendimentos?petID=${pet.id}`);
       const atendimentos = await res.json();
       if (Array.isArray(atendimentos) && atendimentos.length > 0) {
         alert(
@@ -70,7 +70,7 @@ function Pets() {
     }
 
     if (window.confirm("Tem certeza que deseja excluir este pet?")) {
-      await fetch(`${apiURL}/api/pet/${pet.id}`, {
+      await fetch(`${apiURL}/pet/${pet.id}`, {
         method: "DELETE",
       });
       fetchPets();
@@ -86,19 +86,18 @@ function Pets() {
   async function handleSubmit(e) {
     e.preventDefault();
     const payload = {
-      id: editingId,
       nome: formData.nome,
       raca: formData.raca,
       clienteID: formData.clienteId,
     };
     if (editingId) {
-      await fetch(`${apiURL}/api/pet/${editingId}`, {
+      await fetch(`${apiURL}/pet/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
     } else {
-      await fetch(`${apiURL}/api/pet`, {
+      await fetch(`${apiURL}/pet`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

@@ -52,9 +52,9 @@ function Caixa() {
     setLoading(true);
     try {
       const [totalRes, mesRes, movRes] = await Promise.all([
-        fetch(`${apiURL}/api/caixa/total`),
-        fetch(`${apiURL}/api/caixa/mes-atual`),
-        fetch(`${apiURL}/api/caixa`),
+        fetch(`${apiURL}/caixa/total`),
+        fetch(`${apiURL}/caixa/mes-atual`),
+        fetch(`${apiURL}/caixa`),
       ]);
       const [totalData, mesData, movData] = await Promise.all([
         totalRes.json(),
@@ -104,20 +104,19 @@ function Caixa() {
       return;
     }
     const payload = {
-      id: editingId,
       tipo: Number(formData.tipo),
       valor: Math.abs(Number(formData.valor)),
       dataHora: formData.dataHora,
       descricao: formData.descricao,
     };
     if (editingId) {
-      await fetch(`${apiURL}/api/caixa/${editingId}`, {
+      await fetch(`${apiURL}/caixa/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...payload, id: editingId }),
       });
     } else {
-      await fetch(`${apiURL}/api/caixa`, {
+      await fetch(`${apiURL}/caixa`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

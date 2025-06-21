@@ -39,9 +39,9 @@ function Atendimentos() {
     setLoading(true);
     try {
       const [atRes, petsRes, servRes] = await Promise.all([
-        fetch(`${apiURL}/api/atendimentos`),
-        fetch(`${apiURL}/api/pet`),
-        fetch(`${apiURL}/api/servicos`),
+        fetch(`${apiURL}/atendimentos`),
+        fetch(`${apiURL}/pet`),
+        fetch(`${apiURL}/servicos`),
       ]);
       const [atData, petsData, servData] = await Promise.all([
         atRes.json(),
@@ -90,7 +90,6 @@ function Atendimentos() {
   async function handleSubmit(e) {
     e.preventDefault();
     const payload = {
-      id: editingId,
       data: formData.data,
       hora: formData.hora,
       observacao: formData.observacao,
@@ -100,13 +99,13 @@ function Atendimentos() {
     };
 
     if (editingId) {
-      await fetch(`${apiURL}/api/atendimentos/${editingId}`, {
+      await fetch(`${apiURL}/atendimentos/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ payload, id: editingId }),
       });
     } else {
-      await fetch(`${apiURL}/api/atendimentos`, {
+      await fetch(`${apiURL}/atendimentos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
