@@ -39,7 +39,9 @@ namespace banhotosa.Controllers
         [HttpGet("total")]
         public async Task<ActionResult<decimal>> GetTotalCaixa()
         {
-            var total = await _context.Caixa.SumAsync(c => c.Valor);
+            var total = await _context.Caixa
+                .SumAsync(c => c.Tipo == TipoCaixa.Entrada ? c.Valor : -c.Valor);
+
             return Ok(total);
         }
 
@@ -47,19 +49,29 @@ namespace banhotosa.Controllers
         [HttpPost]
         public async Task<ActionResult<Caixa>> PostCaixa(Caixa caixa)
         {
+            if (caixa.Valor < 0)
+                return BadRequest("O valor não pode ser negativo.");
+
+            caixa.Valor = Math.Abs(caixa.Valor); // Garante valor positivo
+
             _context.Caixa.Add(caixa);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetCaixa), new { id = caixa.ID }, caixa);
         }
+
 
         // PUT: api/caixa/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCaixa(int id, Caixa caixa)
         {
             if (id != caixa.ID)
-            {
                 return BadRequest();
-            }
+
+            if (caixa.Valor < 0)
+                return BadRequest("O valor não pode ser negativo.");
+
+            caixa.Valor = Math.Abs(caixa.Valor); // Garante valor positivo
+
             _context.Entry(caixa).State = EntityState.Modified;
             try
             {
@@ -68,16 +80,14 @@ namespace banhotosa.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!CaixaExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
             return NoContent();
         }
+
+
 
         // DELETE: api/caixa/5
         [HttpDelete("{id}")]
