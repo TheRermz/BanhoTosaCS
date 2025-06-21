@@ -35,6 +35,38 @@ namespace banhotosa.Controllers
             return caixa;
         }
 
+        // GET: api/caixa/por-mes
+        [HttpGet("por-mes")]
+        public async Task<ActionResult<IEnumerable<object>>> GetCaixaPorMes()
+        {
+            var agrupado = await _context.Caixa
+                .GroupBy(c => new { c.DataHora.Year, c.DataHora.Month })
+                .Select(g => new
+                {
+                    ano = g.Key.Year,
+                    mes = g.Key.Month,
+                    total = g.Sum(c => c.Tipo == TipoCaixa.Entrada ? c.Valor : -c.Valor)
+                })
+                .OrderByDescending(g => g.ano)
+                .ThenByDescending(g => g.mes)
+                .ToListAsync();
+
+            return Ok(agrupado);
+        }
+
+        // GET: api/caixa/mes-atual
+        [HttpGet("mes-atual")]
+        public async Task<ActionResult<decimal>> GetCaixaMesAtual()
+        {
+            var agora = DateTime.UtcNow;
+            var totalMes = await _context.Caixa
+                .Where(c => c.DataHora.Year == agora.Year && c.DataHora.Month == agora.Month)
+                .SumAsync(c => c.Tipo == TipoCaixa.Entrada ? c.Valor : -c.Valor);
+
+            return Ok(totalMes);
+        }
+
+
         // GET: api/caixa/total -- retornar somente o valor total
         [HttpGet("total")]
         public async Task<ActionResult<decimal>> GetTotalCaixa()

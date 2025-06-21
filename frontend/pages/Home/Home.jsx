@@ -11,6 +11,10 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [loadingAtend, setLoadingAtend] = useState(true);
 
+  const mesAtual = new Date().toLocaleDateString("pt-BR", { month: "long" });
+  const mesAtualCapitalizado =
+    mesAtual.charAt(0).toUpperCase() + mesAtual.slice(1);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -18,7 +22,7 @@ function Home() {
           await Promise.all([
             fetch("http://192.168.15.5:5029/api/clientes/total"),
             fetch("http://192.168.15.5:5029/api/pet/total"),
-            fetch("http://192.168.15.5:5029/api/caixa/total"),
+            fetch("http://192.168.15.5:5029/api/caixa/mes-atual"),
             fetch("http://192.168.15.5:5029/api/servicos"),
             fetch("http://192.168.15.5:5029/api/pet"),
           ]);
@@ -119,7 +123,8 @@ function Home() {
           <span className="card-value">{loading ? "Carregando..." : pets}</span>
         </div>
         <div className="card">
-          <h2>Total do Caixa</h2>
+          <h2>Total do Caixa - {mesAtualCapitalizado}</h2>
+
           <span className="card-value">
             {loading ? "Carregando..." : `R$ ${Number(caixa).toFixed(2)}`}
           </span>
