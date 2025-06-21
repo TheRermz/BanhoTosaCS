@@ -12,6 +12,11 @@
 *.sln.docstates
 .env
 
+# Ignorar pasta do build frontend
+wwwroot/
+# ou se usar outra pasta como dist/
+dist/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
