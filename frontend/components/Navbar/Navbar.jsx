@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <span className="logo">BanhoTosa</span>
+        <span className="logo">Banho e Tosa</span>
         <button
           className="menu-toggle"
           onClick={toggleMenu}
