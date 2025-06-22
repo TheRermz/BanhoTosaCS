@@ -8,9 +8,9 @@ function getLocalDate() {
   return now.toISOString().slice(0, 10); // yyyy-mm-dd
 }
 
-function getLocalTime() {
+function getLocalTimeFull() {
   const now = new Date();
-  return now.toTimeString().slice(0, 5); // HH:MM
+  return now.toTimeString().slice(0, 12); // HH:MM:SS.sss
 }
 
 function Atendimentos() {
@@ -63,7 +63,7 @@ function Atendimentos() {
   function handleCreate() {
     setFormData({
       data: getLocalDate(),
-      hora: getLocalTime(),
+      hora: getLocalTimeFull(),
       observacao: "",
       petID: "",
       servicoID: "",
@@ -89,9 +89,18 @@ function Atendimentos() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    // Ajuste para enviar hora completa (exemplo)
+    let horaFormatada = formData.hora;
+    if (horaFormatada.length === 5) {
+      // se estiver só HH:mm, completar com :00.000
+      horaFormatada += ":00.000";
+    }
+
     const payload = {
+      id: editingId || 0,
       data: formData.data,
-      hora: formData.hora,
+      hora: horaFormatada,
       observacao: formData.observacao,
       status: Number(formData.status),
       petID: Number(formData.petID),
@@ -102,7 +111,7 @@ function Atendimentos() {
       await fetch(`${apiURL}/atendimentos/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payload, id: editingId }),
+        body: JSON.stringify(payload),
       });
     } else {
       await fetch(`${apiURL}/atendimentos`, {
@@ -111,6 +120,7 @@ function Atendimentos() {
         body: JSON.stringify(payload),
       });
     }
+
     setShowForm(false);
     fetchAll();
   }
